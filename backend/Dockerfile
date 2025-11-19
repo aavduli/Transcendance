@@ -7,11 +7,15 @@ build-essential python3 sqlite3 ca-certificates \
 && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json ./
+RUN npm ci --only=production
 
-RUN npm install
 
 COPY . .
 
+RUN mkdir -p /app/data
+
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+USER node
+
+CMD ["npm", "start"]

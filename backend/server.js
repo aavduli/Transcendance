@@ -1,9 +1,16 @@
 const fastify = require('fastify')({ logger : true});
+const path = require("path");
 
 let userexemple = [
 	{id: 1, name: "aavduli", email: "aavduli@42.lausanne.ch"},
 	{id: 1, name: "falberti", email: "falberti@42.lausanne.ch"}
 ];
+
+const app = fastify();
+
+app.get("/*", async (req, res) => {
+	res.sendFile(path.resolve("frontend", "index.html"));
+});
 
 fastify.get('/user', async ( request, reply ) => {
 	return userexemple;
